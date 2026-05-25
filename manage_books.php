@@ -66,114 +66,40 @@ $categories = $conn->query("SELECT * FROM category ORDER BY category_name ASC");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Books - Readify Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f5f5f5;
-        }
-        .sidebar {
-            background-color: #34495e;
-            min-height: 100vh;
-            padding-top: 20px;
-            position: fixed;
-            width: 250px;
-            left: 0;
-            top: 0;
-        }
-        .sidebar a {
-            color: white;
-            text-decoration: none;
-            display: block;
-            padding: 12px 20px;
-            transition: background-color 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-        .sidebar a:hover {
-            background-color: #2c3e50;
-            border-left-color: #e74c3c;
-        }
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-        }
-        .page-header {
-            margin-bottom: 30px;
-        }
-        .page-header h1 {
-            color: #2c3e50;
-        }
-        .form-container {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        .table-container {
-            background: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .btn-action {
-            padding: 6px 12px;
-            font-size: 12px;
-            margin: 0 2px;
-        }
-        .btn-delete {
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-        }
-        .success-msg {
-            background-color: #d5f4e6;
-            color: #27ae60;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #27ae60;
-        }
-        .error-msg {
-            background-color: #fadbd8;
-            color: #e74c3c;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid #e74c3c;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
     <!-- Sidebar Navigation -->
     <div class="sidebar">
-        <div style="padding: 20px; border-bottom: 1px solid #2c3e50; margin-bottom: 20px;">
-            <h4 style="color: white; margin: 0;">📚 Readify Admin</h4>
-            <p style="color: #bdc3c7; margin: 5px 0 0 0; font-size: 12px;">Welcome, <?php echo htmlspecialchars($admin_username); ?></p>
+        <div class="sidebar-header">
+            <h4><i class="fas fa-book"></i> Readify Admin</h4>
+            <p>Welcome, <?php echo htmlspecialchars($admin_username); ?></p>
         </div>
-        <a href="admin_dashboard.php">📊 Dashboard</a>
-        <a href="manage_books.php" style="border-left-color: #e74c3c; background-color: #2c3e50;">📖 Manage Books</a>
-        <a href="manage_categories.php">📁 Manage Categories</a>
-        <a href="manage_users.php">👥 Manage Users</a>
-        <a href="admin_logout.php">🚪 Logout</a>
+        <a href="admin_dashboard.php"><i class="fas fa-chart-line"></i> Dashboard</a>
+        <a href="manage_books.php" class="active"><i class="fas fa-book-open"></i> Manage Books</a>
+        <a href="manage_categories.php"><i class="fas fa-folder"></i> Manage Categories</a>
+        <a href="manage_users.php"><i class="fas fa-users"></i> Manage Users</a>
+        <a href="admin_logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
 
     <!-- Main Content -->
     <div class="main-content">
         <div class="page-header">
-            <h1>Manage Books</h1>
-            <p>Add, view and manage books in the bookstore</p>
+            <h1><i class="fas fa-book-open"></i> Manage Books</h1>
+            <p>Add, view and manage books in your bookstore</p>
         </div>
 
-        <!-- Success/Error Messages -->
         <?php if (!empty($success)) { ?>
-            <div class="success-msg"><?php echo $success; ?></div>
+            <div class="success-msg"><i class="fas fa-check-circle"></i> <?php echo $success; ?></div>
         <?php } ?>
         <?php if (!empty($error)) { ?>
-            <div class="error-msg"><?php echo $error; ?></div>
+            <div class="error-msg"><i class="fas fa-exclamation-circle"></i> <?php echo $error; ?></div>
         <?php } ?>
 
         <!-- Add Book Form -->
         <div class="form-container">
-            <h5>Add New Book</h5>
+            <h5><i class="fas fa-plus-circle"></i> Add New Book</h5>
             <form method="POST" action="">
                 <div class="row">
                     <div class="col-md-6 mb-3">
@@ -222,16 +148,16 @@ $categories = $conn->query("SELECT * FROM category ORDER BY category_name ASC");
                 </div>
 
                 <input type="hidden" name="action" value="add">
-                <button type="submit" class="btn btn-success">Add Book</button>
+                <button type="submit" class="btn-add"><i class="fas fa-plus"></i> Add Book</button>
             </form>
         </div>
 
         <!-- Books Table -->
         <div class="table-container">
-            <h5>All Books</h5>
+            <h5><i class="fas fa-list"></i> All Books</h5>
             <div class="table-responsive">
-                <table class="table table-striped table-hover">
-                    <thead class="table-dark">
+                <table class="table table-hover">
+                    <thead>
                         <tr>
                             <th>Book ID</th>
                             <th>Title</th>
@@ -258,7 +184,7 @@ $categories = $conn->query("SELECT * FROM category ORDER BY category_name ASC");
                                         <form method="POST" action="" style="display:inline;">
                                             <input type="hidden" name="action" value="delete">
                                             <input type="hidden" name="book_id" value="<?php echo $book['book_id']; ?>">
-                                            <button type="submit" class="btn btn-action btn-delete" onclick="return confirm('Are you sure?');">Delete</button>
+                                            <button type="submit" class="btn-delete" onclick="return confirm('Are you sure?');"><i class="fas fa-trash"></i> Delete</button>
                                         </form>
                                     </td>
                                 </tr>
